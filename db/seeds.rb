@@ -1,5 +1,11 @@
 puts "🌱 Seeding spices..."
 
-# Seed your database here
+ users = [
+  {username: 'JohnDoe', password: 'password1'},
+  {username: 'JaneDoe', password: 'password2'}
+ ]
+
+ users.each do |user|
+  User.create(user)
 
 puts "✅ Done seeding!"
