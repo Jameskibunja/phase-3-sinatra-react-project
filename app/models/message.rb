@@ -1,3 +1,6 @@
 class Message < ActiveRecord::Base
-    belongs_to :conversation
-  end
+  belongs_to :user
+  belongs_to :conversation
+
+  validates :body, presence: true
+end

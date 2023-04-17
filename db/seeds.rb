@@ -1,11 +1,17 @@
-puts "🌱 Seeding spices..."
+conversation1 = Conversation.create(name: "General")
+conversation2 = Conversation.create(name: "Random")
+conversation3 = Conversation.create(name: "Sports")
 
- users = [
-  {username: 'JohnDoe', password: 'password1'},
-  {username: 'JaneDoe', password: 'password2'}
- ]
+# Create sample messages for each conversation
+Message.create(conversation: conversation1, username: "Alice", content: "Hello everyone!")
+Message.create(conversation: conversation1, username: "Bob", content: "Hi Alice! How's it going?")
 
- users.each do |user|
-  User.create(user)
+Message.create(conversation: conversation2, username: "Carol", content: "Did you see the latest movie?")
+Message.create(conversation: conversation2, username: "Dave", content: "Yeah, I loved it!")
 
-puts "✅ Done seeding!"
+Message.create(conversation: conversation3, username: "Eve", content: "Great game last night!")
+Message.create(conversation: conversation3, username: "Frank", content: "Definitely! Can't wait for the next one.")
+
+User.create(username: "Alice", password: "password1")
+User.create(username: "Bob", password: "password2")
+
