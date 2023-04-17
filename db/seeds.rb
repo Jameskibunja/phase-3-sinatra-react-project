@@ -14,4 +14,3 @@ Message.create(conversation: conversation3, username: "Frank", content: "Definit
 
 User.create(username: "Alice", password: "password1")
 User.create(username: "Bob", password: "password2")
-

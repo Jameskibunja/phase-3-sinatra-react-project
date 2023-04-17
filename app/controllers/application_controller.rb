@@ -1,7 +1,11 @@
+# app.rb
+require 'sinatra/base'
+require 'json'
+
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
-  # Add routes
+  # Messages routes
   get "/messages" do
     messages = Message.all
     messages.to_json
@@ -31,6 +35,7 @@ class ApplicationController < Sinatra::Base
     deleted_message.to_json
   end
 
+  # Conversations routes
   get '/conversations' do
     conversations = Conversation.all
     conversations.to_json
@@ -39,6 +44,12 @@ class ApplicationController < Sinatra::Base
   get '/conversations/:id' do |id|
     conversation = Conversation.find(id)
     conversation.to_json
+  end
+
+  get "/conversations/:id/messages" do
+    conversation = Conversation.find(params[:id])
+    messages = conversation.messages
+    messages.to_json
   end
 
   post '/conversations' do
@@ -70,20 +81,22 @@ class ApplicationController < Sinatra::Base
     conversation.destroy
     status 204
   end
+
+  # Login routes
   get "/login" do
     users = User.all
     users.to_json
   end
-  
+
   post '/login' do
     content_type :json
     payload = JSON.parse(request.body.read)
-  
+
     username = payload['username']
     password = payload['password']
-  
+
     user = User.find_by(username: username)
-  
+
     if user && user.authenticate(password)
       { success: true, message: 'Logged in successfully' }.to_json
     else
@@ -94,7 +107,4 @@ class ApplicationController < Sinatra::Base
     status 500
     { success: false, message: "Internal Server Error: #{e.message}" }.to_json
   end
-  
-  
-  
 end

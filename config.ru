@@ -1,6 +1,7 @@
 require_relative './config/environment'
 
 require 'rack/parser'
+require 'rack/cors'
 
 use Rack::Cors do
   allow do
@@ -14,19 +15,3 @@ use Rack::Parser, :parsers => {
 }
 
 run ApplicationController
-
-require './app'
-run Sinatra::Application
-
-
-require 'rack/cors'
-
-use Rack::Cors do
-  allow do
-    origins '*'
-    resource '*', headers: :any, methods: [:get, :post, :put, :delete, :options]
-  end
-end
-
-run ApplicationController
-
